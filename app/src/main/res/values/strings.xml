@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Конвертор</string>
+    <string name="radio_d">$ 75 руб.</string>
+    <string name="radio_e">€ 90 руб.</string>
+    <string name="radio_f">£ 100 руб.</string>
+    <string name="price">Введите цену</string>
+    <string name="text_price">Цена: </string>
+    <string name="size">Размер</string>
+    <string name="sale">Скидка: </string>
+</resources>

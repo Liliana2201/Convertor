@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var current_sale: TextView
     private lateinit var sale_scrol: SeekBar
     private lateinit var ok_button: Button
+    private lateinit var dollar: RadioButton
+    private lateinit var evro: RadioButton
+    private lateinit var pound: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         ok_button = findViewById(R.id.ok_button)
         var str = sale_scrol.progress.toString() + "%"
         current_sale.text = str
+        var progressChangedValue = 0
         sale_scrol.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            var progressChangedValue = 0
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 progressChangedValue = progress
                 str = progressChangedValue.toString() + "%"
@@ -44,19 +48,31 @@ class MainActivity : AppCompatActivity() {
                 current_sale.text = str
             }
         })
+        var kurs = 1
+        dollar = findViewById(R.id.radio_d);
+        dollar.setOnClickListener {
+            kurs = 75
+        }
+        evro = findViewById(R.id.radio_e);
+        evro.setOnClickListener {
+            kurs = 90
+        }
+        pound = findViewById(R.id.radio_f);
+        pound.setOnClickListener {
+            kurs = 100
+        }
         if (savedInstanceState != null) {
             price_input.append(savedInstanceState.getString(KEY_INDEX1, ""))
         }
         ok_button.setOnClickListener {
             if (price_input.text.toString() == "")
             {
-                // Здесь код, если EditText пуст
+                Toast.makeText(this, "Введите цену!", Toast.LENGTH_SHORT).show()
             }
             else
             {
-                // если есть текст, то здесь другой код
                 price = price_input.text.toString()
-                //current_sale.text = price
+                var res = (price.toFloat()-price.toFloat()*progressChangedValue)/kurs
             }
         }
     }

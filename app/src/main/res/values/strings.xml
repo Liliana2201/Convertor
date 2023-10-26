@@ -5,7 +5,8 @@
     <string name="radio_f">£ 100 руб.</string>
     <string name="price">Введите цену</string>
     <string name="text_price">Цена: </string>
-    <string name="size"></string>
+    <string name="size"> </string>
     <string name="sale">Скидка: </string>
     <string name="ok_button">OK</string>
+    <string name="back_button">Назад</string>
 </resources>

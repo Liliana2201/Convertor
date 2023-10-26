@@ -9,7 +9,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 
 private const val TAG = "MainActivity"
-private const val KEY_INDEX1 = "currentIndex"
+private const val KEY_INDEX1 = "price"
 var price = ""
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         price_input = findViewById(R.id.price_input)
         current_sale = findViewById(R.id.current_sale)
         sale_scrol = findViewById(R.id.scroll)
+        ok_button = findViewById(R.id.ok_button)
+        if (savedInstanceState != null) {
+            price_input.append(savedInstanceState.getString(KEY_INDEX1, ""))
+        }
         ok_button.setOnClickListener {
             if (price_input.text.toString() == "")
             {
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity() {
             {
                 // если есть текст, то здесь другой код
                 price = price_input.text.toString()
-                current_sale.text = price
+                //current_sale.text = price
             }
         }
     }

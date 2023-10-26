@@ -37,10 +37,8 @@ class MainActivity : AppCompatActivity() {
                 str = progressChangedValue.toString() + "%"
                 current_sale.text = str
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
-
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 str = progressChangedValue.toString() + "%"
                 current_sale.text = str

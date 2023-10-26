@@ -1,12 +1,15 @@
 package com.bignerdranch.android.convertor
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 private const val TAG = "MainActivity"
 private const val KEY_INDEX1 = "price"
@@ -25,6 +28,24 @@ class MainActivity : AppCompatActivity() {
         current_sale = findViewById(R.id.current_sale)
         sale_scrol = findViewById(R.id.scroll)
         ok_button = findViewById(R.id.ok_button)
+        var str = sale_scrol.progress.toString() + "%"
+        current_sale.text = str
+        sale_scrol.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            var progressChangedValue = 0
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                progressChangedValue = progress
+                str = progressChangedValue.toString() + "%"
+                current_sale.text = str
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                str = progressChangedValue.toString() + "%"
+                current_sale.text = str
+            }
+        })
         if (savedInstanceState != null) {
             price_input.append(savedInstanceState.getString(KEY_INDEX1, ""))
         }

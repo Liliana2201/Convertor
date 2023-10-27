@@ -11,7 +11,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-
 private const val TAG = "MainActivity"
 private const val KEY_INDEX1 = "price"
 var price = ""
@@ -48,19 +47,24 @@ class MainActivity : AppCompatActivity() {
                 current_sale.text = str
             }
         })
-        var kurs = 1
+        var kurs = 75
+        var simbol = "$"
         dollar = findViewById(R.id.radio_d);
         dollar.setOnClickListener {
             kurs = 75
+            simbol = "$"
         }
         evro = findViewById(R.id.radio_e);
         evro.setOnClickListener {
             kurs = 90
+            simbol = "€"
         }
         pound = findViewById(R.id.radio_f);
         pound.setOnClickListener {
             kurs = 100
+            simbol = "£"
         }
+        dollar.isChecked = true
         if (savedInstanceState != null) {
             price_input.append(savedInstanceState.getString(KEY_INDEX1, ""))
         }
@@ -72,7 +76,10 @@ class MainActivity : AppCompatActivity() {
             else
             {
                 price = price_input.text.toString()
-                var res = (price.toFloat()-price.toFloat()*progressChangedValue)/kurs
+                val res = (price.toFloat()-price.toFloat()*progressChangedValue/100)/kurs
+                str = "Цена = $res$simbol"
+                val intent = Result.newIntent(this@MainActivity, str)
+                startActivity(intent)
             }
         }
     }

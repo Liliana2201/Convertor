@@ -2,6 +2,7 @@ package com.bignerdranch.android.convertor
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
@@ -11,9 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
+
 private const val TAG = "MainActivity"
 private const val KEY_INDEX1 = "price"
-var price = ""
 
 class MainActivity : AppCompatActivity() {
     private lateinit var price_input: EditText
@@ -23,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dollar: RadioButton
     private lateinit var evro: RadioButton
     private lateinit var pound: RadioButton
-
+    private var kurs = 75
+    private var simbol = "$"
+    private var price = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,34 +40,23 @@ class MainActivity : AppCompatActivity() {
         sale_scrol.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 progressChangedValue = progress
-                str = progressChangedValue.toString() + "%"
+                str = "$progressChangedValue%"
                 current_sale.text = str
             }
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                str = progressChangedValue.toString() + "%"
+                str = "$progressChangedValue%"
                 current_sale.text = str
             }
         })
-        var kurs = 75
-        var simbol = "$"
-        dollar = findViewById(R.id.radio_d);
-        dollar.setOnClickListener {
-            kurs = 75
-            simbol = "$"
-        }
-        evro = findViewById(R.id.radio_e);
-        evro.setOnClickListener {
-            kurs = 90
-            simbol = "€"
-        }
-        pound = findViewById(R.id.radio_f);
-        pound.setOnClickListener {
-            kurs = 100
-            simbol = "£"
-        }
+        dollar = findViewById(R.id.radio_d)
+        dollar.setOnClickListener(radioButtonClickListener)
         dollar.isChecked = true
+        evro = findViewById(R.id.radio_e)
+        evro.setOnClickListener(radioButtonClickListener)
+        pound = findViewById(R.id.radio_f)
+        pound.setOnClickListener(radioButtonClickListener)
         if (savedInstanceState != null) {
             price_input.append(savedInstanceState.getString(KEY_INDEX1, ""))
         }
@@ -83,6 +75,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    private var radioButtonClickListener = View.OnClickListener { v -> val rb = v as RadioButton
+            when (rb.id) {
+                dollar.id -> {
+                    kurs = 75
+                    simbol = "$"
+                }
+                evro.id -> {
+                    kurs = 90
+                    simbol = "€"
+                }
+                pound.id -> {
+                    kurs = 100
+                    simbol = "£"
+                }
+            }
+        }
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart() called")
